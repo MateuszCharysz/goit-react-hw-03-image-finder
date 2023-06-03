@@ -7,6 +7,7 @@ import Modal from './modal/Modal';
 import { apiUrl } from './js/api-url';
 import { pixabayApiLuncher } from './js/pixabay-api-luncher';
 import Loader from './loader/Loader';
+import isEqual from 'lodash.isequal';
 
 export class App extends Component {
   state = {
@@ -55,6 +56,13 @@ export class App extends Component {
     );
   }
   async componentDidUpdate(prevProps, prevState) {
-    await this.apiUrlState();
+    // console.log('update');
+    // console.log(JSON.stringify(prevState.pictures));
+    // console.log(JSON.stringify(this.state.pictures));
+
+    if (
+      JSON.stringify(prevState) !== JSON.stringify(this.state)
+    )
+      await this.apiUrlState();
   }
 }
