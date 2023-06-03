@@ -3,8 +3,8 @@ import React from 'react'
 
 const Modal = props => {
   return (
-    <div class="overlay">
-      <div class="modal">
+    <div className="overlay">
+      <div className="modal">
         Modal
         <img src="" alt="" />
       </div>

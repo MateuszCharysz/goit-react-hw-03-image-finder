@@ -4,7 +4,7 @@ import ImageGalleryItem from 'components/imageGalleryItem/ImageGalleryItem'
 
 const ImageGallery = () => {
   return (
-    <ul class="gallery">
+    <ul className="gallery">
   <ImageGalleryItem/>
 </ul>
   )

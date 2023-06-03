@@ -3,7 +3,7 @@ import React from 'react'
 
 const ImageGalleryItem = props => {
   return (
-    <li class="gallery-item">
+    <li className="gallery-item">
         Zdjątka
       <img src="" alt="" />
     </li>
