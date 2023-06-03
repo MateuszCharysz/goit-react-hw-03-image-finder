@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 // import PropTypes from 'prop-types'
 
-const ImageGalleryItem = props => {
+const ImageGalleryItem = ({ id, smallUrl, alt }) => {
   return (
-    <li className="gallery-item">
-        Zdjątka
-      <img src="" alt="" />
+    <li key={id} className="gallery-item">
+      Zdjątka
+      <img src={smallUrl} alt={alt} />
     </li>
   );
-}
+};
 
 // ImageGalleryItem.propTypes = {}
 
-export default ImageGalleryItem
+export default ImageGalleryItem;

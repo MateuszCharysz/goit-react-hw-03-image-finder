@@ -1,13 +1,16 @@
-import React from 'react'
+import React from 'react';
 // import PropTypes from 'prop-types'
-import ImageGalleryItem from 'components/imageGalleryItem/ImageGalleryItem'
+import ImageGalleryItem from 'components/imageGalleryItem/ImageGalleryItem';
 
-const ImageGallery = () => {
+const ImageGallery = ({ data }) => {
+  console.log(data);
   return (
     <ul className="gallery">
-  <ImageGalleryItem/>
-</ul>
-  )
-}
+      {data.map(({ id, webformatURL, tags }) => (
+        <ImageGalleryItem id={id} smallUrl={webformatURL} alt={tags} />
+      ))}
+    </ul>
+  );
+};
 
-export default ImageGallery
+export default ImageGallery;
