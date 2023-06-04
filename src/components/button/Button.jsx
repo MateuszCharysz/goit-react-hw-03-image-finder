@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 const Button = ({ pagehandler }) => {
   return (
@@ -9,6 +9,8 @@ const Button = ({ pagehandler }) => {
   );
 };
 
-// Button.propTypes = {}
+Button.propTypes = {
+  pagehandler: PropTypes.func.isRequired
+}
 
 export default Button;

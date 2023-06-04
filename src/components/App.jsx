@@ -6,8 +6,7 @@ import ImageGallery from './imageGallery/ImageGallery';
 import Modal from './modal/Modal';
 import { apiUrl } from './js/api-url';
 import { pixabayApiLuncher } from './js/pixabay-api-luncher';
-import Loader from './loader/Loader';
-// import isEqual from 'lodash.isequal';
+import { ThreeDots } from 'react-loader-spinner';
 
 export class App extends Component {
   state = {
@@ -22,13 +21,26 @@ export class App extends Component {
   apiUrlState = async () => {
     const { querry, page, perPage } = this.state;
     this.setState({ isLoading: true });
-    try {
-      const answer = await pixabayApiLuncher(apiUrl(querry, page, perPage));
-      this.setState({ pictures: answer.data.hits });
-    } catch (er) {
-      this.setState({ error: er });
-    } finally {
-      this.setState({ isLoading: false });
+    if (page === 1) {
+      try {
+        const answer = await pixabayApiLuncher(apiUrl(querry, page, perPage));
+        this.setState({ pictures: answer.data.hits });
+      } catch (er) {
+        this.setState({ error: er });
+      } finally {
+        this.setState({ isLoading: false });
+      }
+    } else {
+      try {
+        const answer = await pixabayApiLuncher(apiUrl(querry, page, perPage));
+        this.setState(prevState => ({
+          pictures: [...prevState.pictures, ...answer.data.hits],
+        }));
+      } catch (er) {
+        this.setState({ error: er });
+      } finally {
+        this.setState({ isLoading: false });
+      }
     }
   };
 
@@ -36,8 +48,8 @@ export class App extends Component {
     this.setState({ querry: value, page: 1 });
   };
 
-  pageHandlerBtn = value => {
-    this.setState({ page: value++ });
+  pageHandlerBtn = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   render() {
@@ -46,20 +58,36 @@ export class App extends Component {
       <>
         <Searchbar onSubmit={this.submitHandlerSearch} />
         {isLoading ? (
-          <Loader />
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="#4fa94d"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+          />
         ) : error !== null ? (
           <p>Wystąpił błąd: {error}</p>
         ) : pictures.length > 0 ? (
-          <ImageGallery data={this.state.pictures} />
+          <>
+            <ImageGallery data={this.state.pictures} />
+            <Button pagehandler={this.pageHandlerBtn} />
+          </>
         ) : (
           <p>pusto</p>
         )}
-        <Button pagehandler={this.pageHandlerBtn} />
         <Modal />
       </>
     );
   }
   async componentDidUpdate(prevProps, prevState) {
+    // console.log(prevState.page)
+    // console.log(this.state.page);
+    // console.log(prevState.querry)
+    // console.log(this.state.querry);
+
     if (
       prevState.querry !== this.state.querry ||
       prevState.page !== this.state.page

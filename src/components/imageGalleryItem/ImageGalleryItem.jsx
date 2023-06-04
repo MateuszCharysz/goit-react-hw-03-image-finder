@@ -1,15 +1,17 @@
 import React from 'react';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 const ImageGalleryItem = ({ smallUrl, alt }) => {
   return (
     <li className="gallery-item">
-      Zdjątka
       <img src={smallUrl} alt={alt} />
     </li>
   );
 };
 
-// ImageGalleryItem.propTypes = {}
+ImageGalleryItem.propTypes = {
+  smallUrl: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired
+}
 
 export default ImageGalleryItem;
