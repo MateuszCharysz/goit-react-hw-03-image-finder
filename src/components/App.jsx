@@ -7,7 +7,7 @@ import Modal from './modal/Modal';
 import { apiUrl } from './js/api-url';
 import { pixabayApiLuncher } from './js/pixabay-api-luncher';
 import Loader from './loader/Loader';
-import isEqual from 'lodash.isequal';
+// import isEqual from 'lodash.isequal';
 
 export class App extends Component {
   state = {
@@ -32,15 +32,19 @@ export class App extends Component {
     }
   };
 
-  submitHandler = value => {
-    this.setState({ querry: value });
+  submitHandlerSearch = value => {
+    this.setState({ querry: value, page: 1 });
+  };
+
+  pageHandlerBtn = value => {
+    this.setState({ page: value++ });
   };
 
   render() {
     const { pictures, isLoading, error } = this.state;
     return (
       <>
-        <Searchbar onSubmit={this.submitHandler} />
+        <Searchbar onSubmit={this.submitHandlerSearch} />
         {isLoading ? (
           <Loader />
         ) : error !== null ? (
@@ -50,18 +54,15 @@ export class App extends Component {
         ) : (
           <p>pusto</p>
         )}
-        <Button />
+        <Button pagehandler={this.pageHandlerBtn} />
         <Modal />
       </>
     );
   }
   async componentDidUpdate(prevProps, prevState) {
-    // console.log('update');
-    // console.log(JSON.stringify(prevState.pictures));
-    // console.log(JSON.stringify(this.state.pictures));
-
     if (
-      JSON.stringify(prevState) !== JSON.stringify(this.state)
+      prevState.querry !== this.state.querry ||
+      prevState.page !== this.state.page
     )
       await this.apiUrlState();
   }

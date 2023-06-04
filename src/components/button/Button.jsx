@@ -1,8 +1,12 @@
 import React from 'react';
 // import PropTypes from 'prop-types'
 
-const Button = props => {
-  return <div>Button</div>;
+const Button = ({ pagehandler }) => {
+  return (
+    <button type="button" onClick={pagehandler} className='loadmore'>
+      Load more
+    </button>
+  );
 };
 
 // Button.propTypes = {}

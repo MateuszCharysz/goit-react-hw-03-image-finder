@@ -7,7 +7,7 @@ const ImageGallery = ({ data }) => {
   return (
     <ul className="gallery">
       {data.map(({ id, webformatURL, tags }) => (
-        <ImageGalleryItem id={id} smallUrl={webformatURL} alt={tags} />
+        <ImageGalleryItem key={id} smallUrl={webformatURL} alt={tags} />
       ))}
     </ul>
   );
