@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import css from './Searchbar.module.css'
 
 class Searchbar extends Component {
   render() {
     return (
-      <header className="searchbar">
+      <header className={css.searchbar}>
         <form
-          className="form"
+          className={css.form}
           onSubmit={e => {
             e.preventDefault();
             this.props.onSubmit(e.target.children[1].value);
           }}
         >
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
+          <button type="submit" className={css.button}>
+            <span className={css.buttonLabel}>Search</span>
           </button>
           <input
-            className="input"
+            className={css.input}
             type="text"
             autoComplete="off"
             autoFocus
