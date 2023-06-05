@@ -71,10 +71,16 @@ export class App extends Component {
         ) : error !== null ? (
           <p>Wystąpił błąd: {error}</p>
         ) : pictures.length > 0 ? (
-          <>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
             <ImageGallery data={this.state.pictures} />
             <Button pagehandler={this.pageHandlerBtn} />
-          </>
+          </div>
         ) : (
           <p>pusto</p>
         )}
@@ -93,5 +99,9 @@ export class App extends Component {
       prevState.page !== this.state.page
     )
       await this.apiUrlState();
+    window.scrollBy({
+      top: 100,
+      behavior: 'smooth',
+    });
   }
 }

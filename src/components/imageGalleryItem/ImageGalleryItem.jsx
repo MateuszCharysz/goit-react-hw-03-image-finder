@@ -5,7 +5,7 @@ import css from './ImageGalleryItem.module.css'
 const ImageGalleryItem = ({ smallUrl, alt }) => {
   return (
     <li className={css.galleryItem}>
-      <img src={smallUrl} alt={alt} />
+      <img src={smallUrl} alt={alt} className={css.galleryItemImage} />
     </li>
   );
 };
