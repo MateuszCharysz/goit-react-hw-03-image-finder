@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import Searchbar from './searchbar/Searchbar';
 import Button from './button/Button';
 import ImageGallery from './imageGallery/ImageGallery';
-import Modal from './modal/Modal';
 import { apiUrl } from './js/api-url';
 import { pixabayApiLuncher } from './js/pixabay-api-luncher';
 import { ThreeDots } from 'react-loader-spinner';
+import { scrollAfterLoad } from './js/scroll-after-load';
 
 export class App extends Component {
   state = {
@@ -40,6 +40,9 @@ export class App extends Component {
         this.setState({ error: er });
       } finally {
         this.setState({ isLoading: false });
+        if (this.state.page > 1) {
+          scrollAfterLoad(520);
+        }
       }
     }
   };
@@ -57,20 +60,20 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.submitHandlerSearch} />
-        {isLoading ? (
+        {isLoading && (
           <ThreeDots
             height="80"
             width="80"
             radius="9"
-            color="#4fa94d"
+            color="#2a6ccf"
             ariaLabel="three-dots-loading"
             wrapperStyle={{}}
             wrapperClassName=""
             visible={true}
           />
-        ) : error !== null ? (
-          <p>Wystąpił błąd: {error}</p>
-        ) : pictures.length > 0 ? (
+        )}
+        {error !== null && <p>Wystąpił błąd: {error}</p>}
+        {pictures.length > 0 && (
           <div
             style={{
               display: 'flex',
@@ -81,10 +84,8 @@ export class App extends Component {
             <ImageGallery data={this.state.pictures} />
             <Button pagehandler={this.pageHandlerBtn} />
           </div>
-        ) : (
-          <p>pusto</p>
         )}
-        <Modal />
+        
       </>
     );
   }
@@ -99,9 +100,5 @@ export class App extends Component {
       prevState.page !== this.state.page
     )
       await this.apiUrlState();
-    window.scrollBy({
-      top: 100,
-      behavior: 'smooth',
-    });
   }
 }

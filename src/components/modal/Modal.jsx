@@ -1,17 +1,22 @@
-import React from 'react'
+import React from 'react';
 // import PropTypes from 'prop-types'
+import css from './Modal.module.css';
 
-const Modal = props => {
+const Modal = ({ description, source }) => {
+
+  const closeModal = (e) => {
+
+  }
+
   return (
-    <div className="overlay">
-      <div className="modal">
-        Modal
-        <img src="" alt="" />
+    <div className={css.overlay} onClick={closeModal}>
+      <div className={css.modal}>
+        <img src={source} alt={description} />
       </div>
     </div>
   );
-}
+};
 
 // Modal.propTypes = {}
 
-export default Modal
+export default Modal;
