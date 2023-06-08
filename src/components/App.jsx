@@ -85,16 +85,10 @@ export class App extends Component {
             <Button pagehandler={this.pageHandlerBtn} />
           </div>
         )}
-        
       </>
     );
   }
   async componentDidUpdate(prevProps, prevState) {
-    // console.log(prevState.page)
-    // console.log(this.state.page);
-    // console.log(prevState.querry)
-    // console.log(this.state.querry);
-
     if (
       prevState.querry !== this.state.querry ||
       prevState.page !== this.state.page

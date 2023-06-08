@@ -2,35 +2,35 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImageGalleryItem from 'components/imageGalleryItem/ImageGalleryItem';
 import css from './ImageGallery.module.css';
-// import Modal from 'components/modal/Modal';
+import Modal from 'components/modal/Modal';
 
 export class ImageGallery extends Component {
-  // const { id, webformatURL, tags, largeImageURL } = this.props.data
-  // console.log(data);
-  data = this.props.data;
 
   state = {
     bigUrl: '',
     description: '',
   };
+  clearState = () => {
+    this.setState({ bigUrl: '', description: '' });
+  };
 
-  // handleItem = e => {
-  //   console.log(e);
-  //   console.log(e.target);
-  //   console.log(e.target.props);
-  // };
+  closeModalEsc = e => {
+    if (e.key === 'Escape') this.clearState();
+  };
+
+  closeModalClick = () => {
+    this.clearState();
+  };
 
   handleItem = callback => {
-    console.log(callback)
     const { bigFormatUrl, alt } = callback;
-    // console.log(bigFormatUrl);
     this.setState({ bigUrl: bigFormatUrl, description: alt });
   };
 
   render() {
-    console.log(this.props.data);
     const data = this.props.data;
-    // const { id, webformatURL, tags, largeImageURL } = data;
+    const state = this.state;
+    const {bigUrl, description} = state
     return (
       <>
         <ul className={css.gallery}>
@@ -44,7 +44,14 @@ export class ImageGallery extends Component {
             />
           ))}
         </ul>
-        {/* {this.state.bigFormatUrl !== '' && <Modal />} */}
+        {bigUrl !== '' && (
+          <Modal
+            descr={description}
+            source={bigUrl}
+            closeModalMouse={this.closeModalClick}
+            closeModalKey={this.closeModalEsc}
+          />
+        )}
       </>
     );
   }
