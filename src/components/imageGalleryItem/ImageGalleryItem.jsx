@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import css from './ImageGalleryItem.module.css';
-import Modal from 'components/modal/Modal';
 
-const ImageGalleryItem = ({ smallUrl, alt, bigFormatUrl }) => {
-  const openModal = (tags, url) => {return(<Modal description={tags} source={url} />)}
+const ImageGalleryItem = ({ smallUrl, alt, bigFormatUrl, galleryStateFunc }) => {
+const cbClickHandler = (desc, url) => {
+  console.log(desc)
+  console.log(url)
+  return {
+    bigFormatUrl: url,
+    alt: desc,
+  };
+}
 
   return (
     <li className={css.galleryItem}>
@@ -12,7 +18,7 @@ const ImageGalleryItem = ({ smallUrl, alt, bigFormatUrl }) => {
         src={smallUrl}
         alt={alt}
         className={css.galleryItemImage}
-        onClick={()=> openModal(alt, bigFormatUrl)}
+        onClick={() => galleryStateFunc(cbClickHandler(alt, bigFormatUrl))}
       />
     </li>
   );

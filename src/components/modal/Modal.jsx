@@ -11,6 +11,7 @@ const Modal = ({ description, source }) => {
   return (
     <div className={css.overlay} onClick={closeModal}>
       <div className={css.modal}>
+        Modal
         <img src={source} alt={description} />
       </div>
     </div>
